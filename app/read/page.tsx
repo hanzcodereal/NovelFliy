@@ -17,7 +17,6 @@ function ReadContent() {
     if (!url) return;
     setLoading(true);
     
-    // Extract episode number and title_no from URL
     const epMatch = url.match(/episode_no=(\d+)/);
     const titleMatch = url.match(/title_no=(\d+)/);
     
@@ -44,7 +43,6 @@ function ReadContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Navigate to next/previous episode
   const navigateEpisode = (direction: 'next' | 'prev') => {
     if (!url || !titleNo) return;
     
@@ -54,7 +52,6 @@ function ReadContent() {
     
     if (newEpisode < 1) return;
     
-    // Construct new URL with updated episode number
     const baseUrl = url.replace(/&?episode_no=\d+/, '');
     const newUrl = `${baseUrl}&episode_no=${newEpisode}`;
     window.location.href = `/read?url=${encodeURIComponent(newUrl)}`;
@@ -112,7 +109,6 @@ export default function ReadPage() {
   const searchParams = useSearchParams();
   const url = searchParams.get('url');
   
-  // Extract current episode from URL for header
   const getCurrentEpisode = () => {
     if (!url) return 0;
     const match = url.match(/episode_no=(\d+)/);
@@ -137,7 +133,6 @@ export default function ReadPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      {/* HEADER with navigation buttons */}
       <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm p-2 md:p-4 flex flex-col gap-1">
         <div className="flex items-center gap-2 md:gap-4">
           <button onClick={() => window.history.back()} className="p-2 bg-transparent hover:bg-[var(--accent)] hover:text-black text-white transition-colors border-2 border-transparent hover:border-[var(--accent)]">
@@ -148,7 +143,6 @@ export default function ReadPage() {
             READER_MODULE
           </span>
 
-          {/* Navigation Buttons in Header */}
           <div className="flex-1 flex items-center justify-end gap-2">
             <button 
               onClick={() => navigateEpisode('prev')}
@@ -173,7 +167,6 @@ export default function ReadPage() {
           </div>
         </div>
         
-        {/* Episode info below READER_MODULE */}
         <div className="flex justify-start pl-14">
           <span className="font-mono text-xs text-[var(--accent)] tracking-wider">
             EP {currentEpisode || '?'}
@@ -188,4 +181,4 @@ export default function ReadPage() {
       </main>
     </div>
   );
-            }
+    }
