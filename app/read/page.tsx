@@ -138,7 +138,7 @@ export default function ReadPage() {
   return (
     <div className="min-h-screen flex flex-col bg-black">
       {/* HEADER with navigation buttons */}
-      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b-4 border-[var(--accent)] p-2 md:p-4 flex flex-col gap-1">
+      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm p-2 md:p-4 flex flex-col gap-1">
         <div className="flex items-center gap-2 md:gap-4">
           <button onClick={() => window.history.back()} className="p-2 bg-transparent hover:bg-[var(--accent)] hover:text-black text-white transition-colors border-2 border-transparent hover:border-[var(--accent)]">
             <ArrowLeft size={24} />
@@ -188,4 +188,4 @@ export default function ReadPage() {
       </main>
     </div>
   );
-        }
+            }
