@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --font-space: var(--font-space), "Space Grotesk", sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  
+  --color-brand-green: #ccff00;
+  --color-brand-pink: #ff00ff;
+  --color-brand-blue: #00ffff;
+  --color-brand-orange: #ff4500;
+}
+
+@layer base {
+  :root {
+    --accent: #ccff00;
+  }
+}
