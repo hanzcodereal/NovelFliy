@@ -11,20 +11,15 @@ function ReadContent() {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentEpisode, setCurrentEpisode] = useState<number>(0);
-  const [titleNo, setTitleNo] = useState<string>('');
 
   useEffect(() => {
     if (!url) return;
     setLoading(true);
     
+    // Extract episode number from URL
     const epMatch = url.match(/episode_no=(\d+)/);
-    const titleMatch = url.match(/title_no=(\d+)/);
-    
     if (epMatch) {
       setCurrentEpisode(parseInt(epMatch[1]));
-    }
-    if (titleMatch) {
-      setTitleNo(titleMatch[1]);
     }
     
     fetch(`/api/read?url=${encodeURIComponent(url)}`)
@@ -41,20 +36,6 @@ function ReadContent() {
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const navigateEpisode = (direction: 'next' | 'prev') => {
-    if (!url || !titleNo) return;
-    
-    const newEpisode = direction === 'next' 
-      ? currentEpisode + 1 
-      : currentEpisode - 1;
-    
-    if (newEpisode < 1) return;
-    
-    const baseUrl = url.replace(/&?episode_no=\d+/, '');
-    const newUrl = `${baseUrl}&episode_no=${newEpisode}`;
-    window.location.href = `/read?url=${encodeURIComponent(newUrl)}`;
   };
 
   if (!url) {
@@ -109,6 +90,7 @@ export default function ReadPage() {
   const searchParams = useSearchParams();
   const url = searchParams.get('url');
   
+  // Extract current episode from URL for header
   const getCurrentEpisode = () => {
     if (!url) return 0;
     const match = url.match(/episode_no=(\d+)/);
@@ -133,16 +115,23 @@ export default function ReadPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm p-2 md:p-4 flex flex-col gap-1">
+      {/* HEADER with navigation buttons */}
+      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b-4 border-[var(--accent)] p-2 md:p-4">
         <div className="flex items-center gap-2 md:gap-4">
           <button onClick={() => window.history.back()} className="p-2 bg-transparent hover:bg-[var(--accent)] hover:text-black text-white transition-colors border-2 border-transparent hover:border-[var(--accent)]">
             <ArrowLeft size={24} />
           </button>
           
-          <span className="font-black uppercase tracking-widest text-[var(--accent)] text-sm md:text-base whitespace-nowrap">
-            READER_MODULE
-          </span>
+          <div className="flex flex-col">
+            <span className="font-black uppercase tracking-widest text-[var(--accent)] text-sm md:text-base whitespace-nowrap">
+              READER_MODULE
+            </span>
+            <span className="font-mono text-[10px] text-[var(--accent)] tracking-wider opacity-80">
+              EP {currentEpisode || '?'}
+            </span>
+          </div>
 
+          {/* Navigation Buttons in Header */}
           <div className="flex-1 flex items-center justify-end gap-2">
             <button 
               onClick={() => navigateEpisode('prev')}
@@ -166,12 +155,6 @@ export default function ReadPage() {
             </button>
           </div>
         </div>
-        
-        <div className="flex justify-start pl-14">
-          <span className="font-mono text-xs text-[var(--accent)] tracking-wider">
-            EP {currentEpisode || '?'}
-          </span>
-        </div>
       </header>
       
       <main className="flex-1 w-full flex-col">
@@ -181,4 +164,4 @@ export default function ReadPage() {
       </main>
     </div>
   );
-    }
+                  }
