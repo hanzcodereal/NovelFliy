@@ -42,13 +42,6 @@ export default function Home() {
 
       <main className="flex-1 max-w-4xl w-full mx-auto p-4 flex flex-col gap-8">
         
-        {/* MOCK ADS */}
-        <div className="w-full bg-[var(--color-brand-pink)] text-black border-4 border-white p-3 uppercase font-bold text-center flex flex-col items-center justify-center animate-pulse">
-          <span className="text-xs font-mono bg-black text-white px-2 py-1 mb-1">SPONSORED_SLOT</span>
-          <span className="text-lg">BACA KOMIK TANPA BATAS</span>
-          <span className="opacity-80 text-xs">KLIK DI SINI SEKARANG!</span>
-        </div>
-
         {/* SEARCH */}
         <section>
           <div className="flex border-4 border-white bg-black focus-within:border-[var(--accent)] transition-colors">
@@ -149,4 +142,4 @@ export default function Home() {
       </nav>
     </div>
   );
-}
+        }
